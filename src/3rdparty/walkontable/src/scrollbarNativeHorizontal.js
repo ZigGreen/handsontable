@@ -65,8 +65,13 @@ WalkontableHorizontalScrollbarNative.prototype.onScroll = function () {
 
 WalkontableHorizontalScrollbarNative.prototype.sumCellSizes = function (from, length) {
   var sum = 0;
+  // get a horizontal spacing
+  var borderSpacing = ~~window.getComputedStyle(this.TABLE).borderSpacing.split(' ')[1].slice(0,-2);
+  sum += borderSpacing;
+
   while(from < length) {
     sum += this.instance.wtTable.getStretchedColumnWidth(from) || this.instance.wtSettings.defaultColumnWidth;
+    sum += borderSpacing;
     from++;
   }
   return sum;

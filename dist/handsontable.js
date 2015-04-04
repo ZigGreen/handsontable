@@ -7,7 +7,7 @@
  * Licensed under the MIT license.
  * http://handsontable.com/
  *
- * Date: Thu Mar 19 2015 15:05:12 GMT+0100 (CET)
+ * Date: Sat Apr 04 2015 12:00:08 GMT+0500 (RTZ 4 (зима))
  */
 /*jslint white: true, browser: true, plusplus: true, indent: 4, maxerr: 50 */
 
@@ -20539,8 +20539,12 @@ WalkontableHorizontalScrollbarNative.prototype.onScroll = function () {
 
 WalkontableHorizontalScrollbarNative.prototype.sumCellSizes = function (from, length) {
   var sum = 0;
+  // get a horizontal spacing
+  var borderSpacing = ~~window.getComputedStyle(this.TABLE).borderSpacing.split(' ')[1].slice(0,-2);
+  sum += borderSpacing;
   while(from < length) {
     sum += this.instance.wtTable.getStretchedColumnWidth(from) || this.instance.wtSettings.defaultColumnWidth;
+    sum += borderSpacing;
     from++;
   }
   return sum;
@@ -20660,8 +20664,11 @@ WalkontableVerticalScrollbarNative.prototype.onScroll = function () {
 
 WalkontableVerticalScrollbarNative.prototype.sumCellSizes = function (from, length) {
   var sum = 0;
+  var borderSpacing = ~~window.getComputedStyle(this.TABLE).borderSpacing.split(' ')[0].slice(0,-2);
+
   while (from < length) {
     sum += this.instance.wtTable.getRowHeight(from) || this.instance.wtSettings.settings.defaultRowHeight; //TODO optimize getSetting, because this is MUCH faster then getSetting
+    sum += borderSpacing;
     from++;
   }
   return sum;
